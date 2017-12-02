@@ -1,7 +1,6 @@
 package lokter.hu.coolwallet;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -49,8 +48,6 @@ public class OptionsActivity extends AppCompatActivity {
         editor.putInt(STARTING_AMOUNT,Integer.parseInt(startingEditText.getText().toString()));
         editor.putBoolean(ANIMATION,animateSwitch.isChecked());
         editor.commit();
-        Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
         finish();
     }
 

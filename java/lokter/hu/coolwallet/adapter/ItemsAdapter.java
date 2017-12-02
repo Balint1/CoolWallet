@@ -18,12 +18,14 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Collections;
 import java.util.List;
 
 import lokter.hu.coolwallet.R;
+import lokter.hu.coolwallet.events.ItemSetChangedEvent;
 import lokter.hu.coolwallet.fragments.RecentItemsFragment;
 import lokter.hu.coolwallet.model.Item;
 import lokter.hu.coolwallet.model.Lab3l;
@@ -111,7 +113,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         // remove the item from recycler view
         itemsList.get(position).delete();
         itemsList.remove(position);
-
+        EventBus.getDefault().post(new ItemSetChangedEvent());
         // showing snack bar with Undo option
         Snackbar snackbar = Snackbar
                 .make(fragment.getView(), deletedItem.getTitle() + " " + fragment.getString(R.string.removed), Snackbar.LENGTH_LONG);
@@ -132,6 +134,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         Repository.addItem(item.getTitle(),item.getLabel().getName(),item.getAmount(),item.getDate());
         itemsList.add(position, item);
         // notify item added by position
+        EventBus.getDefault().post(new ItemSetChangedEvent());
         notifyItemInserted(position);
     }
     public void loadItems()

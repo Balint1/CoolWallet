@@ -81,7 +81,7 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
     DateTime startDate;
     DateTime endDate;
     ViewPager vp;
-    private int startingAmount = 0;
+    private Integer startingAmount = null;
 
     public DiagramFragment() {
 
@@ -110,8 +110,15 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onResume(){
         super.onResume();
+
+        Integer oldAmount = startingAmount;
+        startingAmount = 0;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
         startingAmount = settings.getInt(OptionsActivity.STARTING_AMOUNT,startingAmount);
+        if(oldAmount != null && startingAmount != oldAmount){
+            loadBalanceChart();
+            refreshBalances();
+        }
         Log.i("Life_CYCLE","OnResume");
 
     }
