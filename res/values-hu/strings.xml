@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">CoolWallet</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Beállítások</string>
+    <string name="str_cancel">Visszavonás</string>
+    <string name="str_expense">Kiadás</string>
+    <string name="str_income">Bevétel</string>
+    <string name="recent_items">Friss kiadások</string>
+    <string name="title">Név</string>
+    <string name="amount">Összeg</string>
+    <string name="label">Címke</string>
+    <string name="save">Mentés</string>
+    <string name="calendar_date_picker_result_values">%1$s.%2$s.%3$s</string>
+    <string name="radial_time_picker_result_value">%1$s:%2$s</string>
+    <string name="empty_editText">Ezt a mezőt ki kell töltened</string>
+    <string name="no_items">Nincsenek kiadások ebben az időszakban</string>
+    <string name="dispersion">eloszlás</string>
+    <string name="settings">Beállítások</string>
+    <string name="label_manager">Címke kkezelő</string>
+    <string name="planed_expenses">Tervezett kiadások</string>
+    <string name="author">Készítő:  </string>
+    <string name="authors_name">Bartha Bálint</string>
+    <string name="options">Beállítások</string>
+    <string name="starting_amount">Kezdő összeg:</string>
+    <string name="animations">Animációk:</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
+    <string name="settings_saved">Beállítások sikeresen mentve!</string>
+    <string name="my_cart">My Cart</string>
+    <string name="delete">TÖRLÉS</string>
+    <string name="removed">eltávolítva a lsitából!</string>
+    <string name="undo">VISSZAVONÁS</string>
+    <string name="january">Január</string>
+    <string name="february">Február</string>
+    <string name="march">Március</string>
+    <string name="april">Április</string>
+    <string name="may">Május</string>
+    <string name="june">Június</string>
+    <string name="jule">Július</string>
+    <string name="august">Augusztus</string>
+    <string name="september">Szeptember</string>
+    <string name="october">Október</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="item_saved">Sikeresen mentve!</string>
+    <string name="al_items">Összes</string>
+    <string name="monthly">Havi</string>
+    <string name="yearly">Évi</string>
+    <string name="expense">Kiadás</string>
+    <string name="income">Bevétel</string>
+    <string name="add_item">%s hozzáadása</string>
+    <string name="save_confirmation">Mentetlen változtatások lehetnek! Szeretnéd elmenteni?</string>
+</resources>

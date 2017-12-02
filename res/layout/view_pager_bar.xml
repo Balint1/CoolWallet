@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+    <TextView
+        android:id="@+id/bar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/recent_items"
+        android:textSize="20sp"
+        android:textColor="#f9f5f5"
+        android:gravity="center"/>
+    <Spinner
+        android:id="@+id/label_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"></Spinner>
+</android.support.v7.widget.Toolbar>
+
+
+
