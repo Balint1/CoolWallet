@@ -11,15 +11,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lokter.hu.coolwallet.adapter.MainPagerAdapter;
+import lokter.hu.coolwallet.events.OnScrolledEvent;
 import lokter.hu.coolwallet.fragments.RepeatingItemsFragment;
 
 import static lokter.hu.coolwallet.R.id.vpMain;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
     @BindView(vpMain)
     ViewPager viewPager;
@@ -39,7 +42,12 @@ public class MainActivity extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        /*Fragment mainFragment = new MainFragment();
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.add(R.id.drawer_layout,mainFragment);
+        t.addToBackStack(null);
+        t.commit();*/
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class MainActivity extends AppCompatActivity
            case R.id.planned_expenses:
                Fragment plannedFragment = new RepeatingItemsFragment();
                FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-               t.replace(R.id.drawer_layout,plannedFragment);
+               t.add(R.id.container_fragment,plannedFragment);
                t.addToBackStack(null);
                t.commit();
                break;
@@ -77,6 +85,23 @@ public class MainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if(state == 1){
+            EventBus.getDefault().post(new OnScrolledEvent(viewPager.getCurrentItem()));
+        }
     }
 
   /*  @Override

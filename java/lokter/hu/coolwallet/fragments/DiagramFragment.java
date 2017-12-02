@@ -27,6 +27,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -37,6 +40,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import lokter.hu.coolwallet.OptionsActivity;
 import lokter.hu.coolwallet.R;
+import lokter.hu.coolwallet.events.ItemSetChangedEvent;
+import lokter.hu.coolwallet.events.OnDateChangedEvent;
+import lokter.hu.coolwallet.events.OnScrolledEvent;
 import lokter.hu.coolwallet.model.Item;
 import lokter.hu.coolwallet.model.Lab3l;
 import lokter.hu.coolwallet.model.Repository;
@@ -47,11 +53,12 @@ import static java.lang.Math.abs;
  * Created by Balint on 2017. 10. 13..
  */
 
-public class DiagramFragment extends Fragment implements AdapterView.OnItemSelectedListener, ViewPager.OnPageChangeListener {
+public class DiagramFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     public static final String DIAGRAM_TYPE = "diagram_type";
     public static final String DIAGRAM_MONTHLY = "Monthly";
     public static final String DIAGRAM_YEARLY = "Yearly";
     public static final String DIAGRAM_POS = "diagram_pos";
+    boolean dateChanged = false;
     @BindView(R.id.tvIncome)
     TextView tvIncome;
     @BindView(R.id.tvExpense)
@@ -93,17 +100,11 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
         pos = getArguments().getInt(DIAGRAM_POS);
         barText.setText(typeToString());
         fillSpinner();
-        //startDate = DateTime.now();
-        //refreshDates();
         spinner.setOnItemSelectedListener(this);
         chartExpense.setRotationEnabled(false);
         chartExpense.getDescription().setEnabled(false);
         chartExpense.setCenterText(typeToString() + " " + getString(R.string.dispersion));
         barChartBalance.getDescription().setEnabled(false);
-        //barChartBalance.getLegend().setEnabled(false);
-
-        vp = (ViewPager) getActivity().findViewById(R.id.vpMain);
-        vp.addOnPageChangeListener(this);
         return rootView;
     }
     @Override
@@ -121,7 +122,6 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
         anim = settings.getBoolean(OptionsActivity.ANIMATION,anim);
         if(anim){
             chartExpense.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-            //barChartBalance.animateX(700);
             barChartBalance.invalidate();
         }else {
             chartExpense.invalidate();
@@ -152,9 +152,6 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         PieData data = new PieData(dataSet);
         chartExpense.setData(data);
-        // vp = (ViewPager) getActivity().findViewById(R.id.vpMain);
-        // vp.addOnPageChangeListener(this);
-
     }
 
     private void fillSpinner() {
@@ -225,10 +222,10 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         refreshDates();
-        loadExpenseChart();
-        loadBalanceChart();
+        EventBus.getDefault().post(new OnDateChangedEvent());
         animate();
-        refreshBalances();
+        Log.i("EVENT","timeSelected");
+
     }
 
     @Override
@@ -236,31 +233,6 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        int currPos = vp.getCurrentItem();
-        Log.i("SCROLL", "Type : " + type);
-        Log.i("SCROLL", "CurrPos : " + currPos + " Pos : " + pos);
-        Log.i("SCROLL", "State : " + state);
-
-        if (state == 1 && (currPos == pos - 1 || currPos == pos + 1)) {
-            refreshDates();
-            loadExpenseChart();
-            loadBalanceChart();
-            animate();
-            refreshBalances();
-        }
-    }
 
     private void refreshBalances() {
         int[] values = Repository.balance(startDate,endDate);
@@ -326,5 +298,38 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
                 return getString(R.string.yearly);
         }
         return "";
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangedEvent(ItemSetChangedEvent event) {
+        loadExpenseChart();
+        loadBalanceChart();
+        refreshBalances();
+    };
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDateChangedEvent(OnDateChangedEvent event) {
+        refreshDates();
+        loadExpenseChart();
+        loadBalanceChart();
+        refreshBalances();
+    };
+    @Subscribe()
+    public void onPageChangedEvent(OnScrolledEvent event) {
+        if(event.getPage() == pos -1 || event.getPage() == pos +1){
+            //refreshDates();
+            animate();
+            Log.i("EVENT","scroll" + event.getPage());
+        }
+    };
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

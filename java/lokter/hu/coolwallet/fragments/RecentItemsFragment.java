@@ -22,6 +22,10 @@ import android.widget.Spinner;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +35,7 @@ import lokter.hu.coolwallet.R;
 import lokter.hu.coolwallet.RecyclerItemTouchHelper;
 import lokter.hu.coolwallet.adapter.ItemsAdapter;
 import lokter.hu.coolwallet.adapter.SpinnerAdapter;
+import lokter.hu.coolwallet.events.ItemSetChangedEvent;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -112,24 +117,28 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
 
 
 
+
         return rootView;
     }
-
-
     @Override
-    public void onResume() {
-        super.onResume();
-        // initRecyclerView();
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             Log.i("RES", "Megérkezett");
-            mAdapter.loadItems();
-        Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new ItemSetChangedEvent());
+            Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
         }
-        spinnerAdapter.refresh();
+
     }
 
 
@@ -186,6 +195,12 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
             mAdapter.removeItem( viewHolder.getAdapterPosition() );
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangedEvent(ItemSetChangedEvent event) {
+        mAdapter.loadItems();
+        spinnerAdapter.refresh();
+    };
 
 
 

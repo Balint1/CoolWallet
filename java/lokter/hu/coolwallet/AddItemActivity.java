@@ -1,6 +1,8 @@
 package lokter.hu.coolwallet;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -130,7 +132,8 @@ public class AddItemActivity extends AppCompatActivity implements CalendarDatePi
         if(type.equals("expense"))
             amount = amount* -1;
         Repository.addItem(editTextTitle.getText().toString(),autoCompleteTextView.getText().toString(),amount,formatter.parseDateTime(dateString));
-
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
 
