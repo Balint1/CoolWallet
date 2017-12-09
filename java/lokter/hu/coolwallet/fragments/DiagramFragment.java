@@ -233,6 +233,7 @@ public class DiagramFragment extends Fragment implements AdapterView.OnItemSelec
         animate();
         Log.i("EVENT","timeSelected");
 
+
     }
 
     @Override

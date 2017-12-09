@@ -39,6 +39,13 @@ public class Item extends Model implements Serializable,Comparable{
         this.amount = amount;
     }
 
+    public Item(String s, Lab3l label, int amount, DateTime dateTime) {
+        super();
+        this.title = s;
+        this.label = label;
+        this.amount = amount;
+        this.date = dateTime.getMillis();
+    }
 
 
     public String getTitle() {

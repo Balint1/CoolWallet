@@ -113,7 +113,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         // remove the item from recycler view
         itemsList.get(position).delete();
         itemsList.remove(position);
-        EventBus.getDefault().post(new ItemSetChangedEvent());
+        EventBus.getDefault().post(new ItemSetChangedEvent(ItemSetChangedEvent.DELETED));
         // showing snack bar with Undo option
         Snackbar snackbar = Snackbar
                 .make(fragment.getView(), deletedItem.getTitle() + " " + fragment.getString(R.string.removed), Snackbar.LENGTH_LONG);
@@ -134,7 +134,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         Repository.addItem(item.getTitle(),item.getLabel().getName(),item.getAmount(),item.getDate());
         itemsList.add(position, item);
         // notify item added by position
-        EventBus.getDefault().post(new ItemSetChangedEvent());
+        EventBus.getDefault().post(new ItemSetChangedEvent(ItemSetChangedEvent.RESTORED));
         notifyItemInserted(position);
     }
     public void loadItems()

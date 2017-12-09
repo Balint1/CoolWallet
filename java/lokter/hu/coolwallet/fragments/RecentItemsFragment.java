@@ -12,7 +12,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +35,6 @@ import lokter.hu.coolwallet.RecyclerItemTouchHelper;
 import lokter.hu.coolwallet.adapter.ItemsAdapter;
 import lokter.hu.coolwallet.adapter.SpinnerAdapter;
 import lokter.hu.coolwallet.events.ItemSetChangedEvent;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Balint on 2017. 10. 03..
@@ -131,15 +128,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Log.i("RES", "Megérkezett");
-            EventBus.getDefault().post(new ItemSetChangedEvent());
-            Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
-        }
 
-    }
 
 
     @Override
@@ -174,7 +163,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
                  intent = new Intent(getActivity(), AddItemActivity.class);
                 intent.putExtra(AddItemActivity.CREATE_TYPE, "income");
 
-                startActivityForResult(intent, REQUEST_NEW_ITEM_CODE, options.toBundle());
+                startActivity(intent, options.toBundle());
                 break;
         }
     }
@@ -200,7 +189,11 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
     public void onChangedEvent(ItemSetChangedEvent event) {
         mAdapter.loadItems();
         spinnerAdapter.refresh();
+        if(event.changeType.equals(ItemSetChangedEvent.CREATED))
+        Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
     };
+
+
 
 
 

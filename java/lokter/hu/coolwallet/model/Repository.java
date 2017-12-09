@@ -67,7 +67,8 @@ public class Repository {
         Lab3l label = new Lab3l();
         if(labelName.equals(""))
             labelName = "Other";
-
+        if(labels == null)
+        loadLabels();
         for (Lab3l l:labels) {
             if(l.getName().equals(labelName))
             {newLabel = false;
@@ -127,5 +128,12 @@ public class Repository {
 
     public static void addLabel(Lab3l label) {
         label.save();
+    }
+
+    public static List<RepeatingItem> getRepeatingItems(){
+        Log.i("database", "Item-ek betöltése");
+        return new Select()
+                .from(RepeatingItem.class)
+                .execute();
     }
 }

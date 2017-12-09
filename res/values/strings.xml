@@ -53,7 +53,28 @@
     <string name="income">income</string>
     <string name="add_item">Add %s item</string>
     <string name="save_confirmation">There are unsaved changes! Do you want to save?</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="starting_date">Starting date:</string>
+    <string name="new_repeating">New repeating item</string>
+    <string name="create">Create</string>
+    <string name="title_activity_random">random</string>
+    <string name="repeating_items">Repeating items</string>
+    <string name="notification_title">Item: %1$s</string>
+    <string name="notification_item_saved">Repeating item saved</string>
+    <string name="item_saved_notification">Item saved notification</string>
+    <string name="dismiss">DISMISS</string>
+    <string name="open">Open</string>
+    <string name="repeating_item">Repeating item</string>
+    <string name="morning">Morning (8:00)</string>
+    <string name="south">South (12:00)</string>
+    <string name="afternoon">Afternoon (16:00)</string>
+    <string name="evening">Evening(20:00)</string>
+    <string name="now">Now</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="time_monthly">Monthly</string>
+    <string name="second">Second</string>
+    <string name="set_item">Set Item</string>
+    <string name="frequency">Frequency</string>
 </resources>

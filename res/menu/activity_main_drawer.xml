@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/planed_expenses" />
         <item
-            android:id="@+id/Label_manager"
+            android:id="@+id/label_manager"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/label_manager" />
         <item

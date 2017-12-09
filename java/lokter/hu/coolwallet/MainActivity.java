@@ -3,13 +3,12 @@ package lokter.hu.coolwallet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,12 +16,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lokter.hu.coolwallet.adapter.MainPagerAdapter;
 import lokter.hu.coolwallet.events.OnScrolledEvent;
-import lokter.hu.coolwallet.fragments.RepeatingItemsFragment;
+import lokter.hu.coolwallet.fragments.NewRepeatingItemDialogFragment;
+import lokter.hu.coolwallet.model.Item;
+import lokter.hu.coolwallet.model.RepeatingItem;
 
 import static lokter.hu.coolwallet.R.id.vpMain;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener,NewRepeatingItemDialogFragment.INewRepeatingItemDialogListener {
 
     @BindView(vpMain)
     ViewPager viewPager;
@@ -74,11 +75,8 @@ public class MainActivity extends AppCompatActivity
                startActivityForResult(intent,100);
                break;
            case R.id.planned_expenses:
-               Fragment plannedFragment = new RepeatingItemsFragment();
-               FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-               t.add(R.id.container_fragment,plannedFragment);
-               t.addToBackStack(null);
-               t.commit();
+               Intent intent1 = new Intent(this, RepeatingItemActivity.class);
+               startActivity(intent1);
                break;
 
        }
@@ -104,10 +102,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-  /*  @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            Snackbar.make((ViewPager) findViewById(R.id.vpMain), R.string.settings_saved,Snackbar.LENGTH_SHORT).show();
+
+    @Override
+    public void onRepeatingItemCreated(RepeatingItem newItem,Item item) {
+        if(item != null)
+        Toast.makeText(this,newItem.getName() + " " + newItem.getFrequency() + item.getTitle(),Toast.LENGTH_LONG).show();
+        else{
+            Toast.makeText(this,"Muszáj itemet megadni",Toast.LENGTH_LONG).show();
         }
-    }*/
+    }
 }

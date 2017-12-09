@@ -3,7 +3,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Beállítások</string>
     <string name="str_cancel">Visszavonás</string>
     <string name="str_expense">Kiadás</string>
@@ -53,4 +52,25 @@
     <string name="income">Bevétel</string>
     <string name="add_item">%s hozzáadása</string>
     <string name="save_confirmation">Mentetlen változtatások lehetnek! Szeretnéd elmenteni?</string>
+    <string name="date">Dátum</string>
+    <string name="time">Idő</string>
+    <string name="starting_date">Kezdő időpont:</string>
+    <string name="new_repeating">Új ismétlődő tétel</string>
+    <string name="create">Létrehozás</string>
+    <string name="repeating_items">Ismétlődő tételek</string>
+    <string name="notification_title">Tétel: %1$s</string>
+    <string name="notification_item_saved">Ismétlődő tétel mentve</string>
+    <string name="item_saved_notification">Tétel mentve</string>
+    <string name="open">Megnyitás</string>
+    <string name="repeating_item">Ismétlődő tétel</string>
+    <string name="south">Dél (12:00)</string>
+    <string name="afternoon">Délután (16:00)</string>
+    <string name="evening">Este (20:00)</string>
+    <string name="now">Most</string>
+    <string name="daily">Naponta</string>
+    <string name="weekly">Hetente</string>
+    <string name="time_monthly">Havonta</string>
+    <string name="second">Másodpercenként</string>
+    <string name="set_item">Tétel beállítása</string>
+    <string name="frequency">Gyakoriság</string>
 </resources>

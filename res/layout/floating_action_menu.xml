@@ -22,7 +22,7 @@
         fab:menu_colorNormal="@color/colorAccent"
         fab:menu_colorPressed="#87f4a0"
         fab:menu_colorRipple="#99FFFFFF"
-        fab:menu_animationDelayPerItem="50"
+        fab:menu_animationDelayPerItem="70"
         fab:menu_icon="@drawable/fab_add"
         fab:menu_buttonSpacing="0dp"
         fab:menu_labels_margin="0dp"
