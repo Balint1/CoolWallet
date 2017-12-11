@@ -6,10 +6,6 @@
         android:title="DELETE"
         app:showAsAction="always" />
     <item
-        android:id="@+id/edit"
-        android:title="EDIT"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/back"
         android:title="BACK"
         app:showAsAction="always" />

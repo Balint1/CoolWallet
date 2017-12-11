@@ -77,6 +77,6 @@
     <string name="set_item">Set Item</string>
     <string name="frequency">Frequency</string>
     <string name="no_item_set">No item</string>
-    <string name="success_create">sikeresen létrehozva!</string>
-    <string name="you_must_set_an_item">Muszáj itemet megadni</string>
+    <string name="success_create">succesfully created!</string>
+    <string name="you_must_set_an_item">You must to set an item</string>
 </resources>

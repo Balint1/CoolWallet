@@ -45,6 +45,7 @@ public class OptionsActivity extends AppCompatActivity {
     public void onViewClicked() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
+        if(!startingEditText.getText().toString().isEmpty())
         editor.putInt(STARTING_AMOUNT,Integer.parseInt(startingEditText.getText().toString()));
         editor.putBoolean(ANIMATION,animateSwitch.isChecked());
         editor.commit();

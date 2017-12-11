@@ -18,7 +18,7 @@
     <string name="no_items">Nincsenek kiadások ebben az időszakban</string>
     <string name="dispersion">eloszlás</string>
     <string name="settings">Beállítások</string>
-    <string name="label_manager">Címke kkezelő</string>
+    <string name="label_manager">Címke kezelő</string>
     <string name="planed_expenses">Tervezett kiadások</string>
     <string name="author">Készítő:  </string>
     <string name="authors_name">Bartha Bálint</string>
@@ -74,6 +74,6 @@
     <string name="set_item">Tétel beállítása</string>
     <string name="frequency">Gyakoriság</string>
     <string name="no_item_set">Nincs beállítva</string>
-    <string name="success_create">sikeresen létrehozva!</string>
+    <string name="success_create"> sikeresen létrehozva!</string>
     <string name="you_must_set_an_item">Muszáj itemet megadni</string>
 </resources>

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Collections;
@@ -34,10 +33,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public List<Item> itemsList;
     private RecentItemsFragment fragment;
-    DateTime startTime ;
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, lab3l, amount,date;
         public View  viewBackground,viewForeground;
@@ -56,7 +51,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public ItemsAdapter(RecentItemsFragment fragment) {
         this.fragment = fragment;
-        startTime = new DateTime(DateTime.now().year().get(),DateTime.now().monthOfYear().get(),1,0,0);
         loadItems();
 
     }
@@ -139,15 +133,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
     public void loadItems()
     {
-        itemsList = Repository.between(startTime,DateTime.now());
-
+        itemsList = Repository.getItems();
+        Collections.sort(itemsList);
         notifyDataSetChanged();
     }
 
     private void loadLabel(Lab3l label)
     {
-        itemsList = Repository.between(startTime,DateTime.now(),label);
-
+        itemsList = Repository.getItems(label);
+        Collections.sort(itemsList);
         notifyDataSetChanged();
     }
 
@@ -169,8 +163,4 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         else
             loadLabel(label);
     }
-    public void incrementStartingTime(){
-        startTime = startTime.minusMonths(1);
-    }
-
 }

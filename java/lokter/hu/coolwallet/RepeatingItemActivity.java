@@ -64,7 +64,7 @@ public class RepeatingItemActivity extends AppCompatActivity
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, repeatingItem.getStartingDate(),pendingIntent);
 
-            Toast.makeText(this,repeatingItem.getName() + getString(R.string.success_create), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,repeatingItem.getName() + " " +getString(R.string.success_create), Toast.LENGTH_SHORT).show();
             mAdapter.addItem(repeatingItem);
         }
         else{
