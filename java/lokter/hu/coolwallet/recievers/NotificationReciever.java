@@ -22,22 +22,28 @@ import static android.content.Context.ALARM_SERVICE;
  */
 
 public class NotificationReciever extends BroadcastReceiver {
-    private static final int NotificationID = 3456;
     public static final int MONTHLY = 101;
     public static final int WEEKLY= 102;
     public static final int DAILY = 103;
     public static final int SECOND = 104;
+    public static final String TITLE = "TITLE";
+    public static final String LABEL = "LABEL";
+    public static final String AMOUNT = "AMOUNT";
+    public static final String ID = "ID";
+    public static final String INTERVAL = "INTERVAL";
+    public static final String FREQ = "FREQ";
+    public static final String TIME = "TIME";
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title = intent.getStringExtra("TITLE");
-        String label = intent.getStringExtra("LABEL");
-        int amount = intent.getIntExtra("AMOUNT",1);
-        int id = intent.getIntExtra("ID",1);
-        int interval = intent.getIntExtra("INTERVAL",1);
-        int freq = intent.getIntExtra("FREQ",1);
-        DateTime startingTime = new DateTime(intent.getLongExtra("TIME",1));
+        String title = intent.getStringExtra(TITLE);
+        String label = intent.getStringExtra(LABEL);
+        int amount = intent.getIntExtra(AMOUNT,1);
+        int id = intent.getIntExtra(ID,1);
+        int interval = intent.getIntExtra(INTERVAL,1);
+        int freq = intent.getIntExtra(FREQ,1);
+        DateTime startingTime = new DateTime(intent.getLongExtra(TIME,1));
 
 
         switch (interval){

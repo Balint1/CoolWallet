@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
@@ -52,6 +53,8 @@ public class NewRepeatingItemDialogFragment extends AppCompatDialogFragment impl
     EditText freqEditText;
     @BindView(R.id.time_spinner)
     Spinner timeSpinner;
+    @BindView(R.id.tvItemSet)
+    TextView tvItemSet;
     Unbinder unbinder;
 
     @BindView(R.id.rep_save)
@@ -177,6 +180,7 @@ public class NewRepeatingItemDialogFragment extends AppCompatDialogFragment impl
         freqEditText.setText("1");
         dateEditText.setText(DateTimeFormat.forPattern("yyyy.MM.dd").print(selectedDate));
 
+
         return contentView;
     }
 
@@ -195,7 +199,9 @@ public class NewRepeatingItemDialogFragment extends AppCompatDialogFragment impl
 
         if(resultCode == RESULT_OK){
             item = (Item) data.getSerializableExtra("REP_ITEM");
+            tvItemSet.setText(item.getTitle());
             Log.i("REPEATING_ITEM",item.getLabel().getName());
+
         }
 
     }

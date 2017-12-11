@@ -29,6 +29,7 @@ import lokter.hu.coolwallet.model.Lab3l;
 import lokter.hu.coolwallet.model.Repository;
 
 import static java.lang.Math.abs;
+import static lokter.hu.coolwallet.R.string.income;
 
 public class AddItemActivity extends AppCompatActivity implements CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener {
 
@@ -37,6 +38,8 @@ public class AddItemActivity extends AppCompatActivity implements CalendarDatePi
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
     public static final String CREATE_TYPE = "create_type";
     public static final String REPEATING_ITEM = "repeating_item";
+    public static final String INCOME = "income";
+    public static final String EXPENSE = "expense";
     @BindView(R.id.editTextTitle)
     EditText editTextTitle;
     @BindView(R.id.editTextAmount)
@@ -143,13 +146,12 @@ public class AddItemActivity extends AppCompatActivity implements CalendarDatePi
             ret = true;
         }
         if (ret) return;
-        //AutoCompleteTextView atv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         String dateString = editTextDate.getText().toString() + " " + editTextTime.getText().toString();
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy.MM.dd HH:mm");
         int amount = Integer.parseInt(editTextAmount.getText().toString());
         if (!type.equals(REPEATING_ITEM))
             amount = abs(amount);
-        if (type.equals("expense"))
+        if (type.equals(EXPENSE))
             amount = amount * -1;
         if (type.equals(REPEATING_ITEM)) {
             boolean newLabel = true;
@@ -174,9 +176,9 @@ public class AddItemActivity extends AppCompatActivity implements CalendarDatePi
 
     public String typeToString() {
         switch (type) {
-            case "income":
-                return getString(R.string.income);
-            case "expense":
+            case INCOME:
+                return getString(income);
+            case EXPENSE:
                 return getString(R.string.expense);
             case REPEATING_ITEM:
                 return getString(R.string.repeating_item);

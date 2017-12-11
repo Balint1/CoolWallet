@@ -101,6 +101,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
+
         };
 
         // attaching the touch helper to recycler view
@@ -111,22 +112,14 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
         spinnerAdapter = new SpinnerAdapter(getContext(), labelSpinner, getString(R.string.al_items));
         labelSpinner.setOnItemSelectedListener(this);
         spinnerAdapter.refresh();
-
-
-
-
+        EventBus.getDefault().register(this);
         return rootView;
     }
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
+
 
 
 
@@ -134,6 +127,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
     }
 
@@ -149,7 +143,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
                         FloatingActionMenu1,
                         "create");
                 intent = new Intent(getActivity(), AddItemActivity.class);
-                intent.putExtra(AddItemActivity.CREATE_TYPE, "expense");
+                intent.putExtra(AddItemActivity.CREATE_TYPE, AddItemActivity.EXPENSE);
 
                 startActivityForResult(intent, REQUEST_NEW_ITEM_CODE, options.toBundle());
                 break;
@@ -161,7 +155,7 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
                                 FloatingActionMenu1,
                                 "create");
                  intent = new Intent(getActivity(), AddItemActivity.class);
-                intent.putExtra(AddItemActivity.CREATE_TYPE, "income");
+                intent.putExtra(AddItemActivity.CREATE_TYPE, AddItemActivity.INCOME);
 
                 startActivity(intent, options.toBundle());
                 break;
@@ -192,9 +186,4 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
         if(event.changeType.equals(ItemSetChangedEvent.CREATED))
         Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
     };
-
-
-
-
-
 }

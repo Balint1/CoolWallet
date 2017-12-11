@@ -66,11 +66,14 @@
     <string name="south">Dél (12:00)</string>
     <string name="afternoon">Délután (16:00)</string>
     <string name="evening">Este (20:00)</string>
-    <string name="now">Most</string>
+    <string name="now">Most (Teszt)</string>
     <string name="daily">Naponta</string>
     <string name="weekly">Hetente</string>
     <string name="time_monthly">Havonta</string>
-    <string name="second">Másodpercenként</string>
+    <string name="second">Másodpercenként (Teszt)</string>
     <string name="set_item">Tétel beállítása</string>
     <string name="frequency">Gyakoriság</string>
+    <string name="no_item_set">Nincs beállítva</string>
+    <string name="success_create">sikeresen létrehozva!</string>
+    <string name="you_must_set_an_item">Muszáj itemet megadni</string>
 </resources>

@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,14 +15,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lokter.hu.coolwallet.adapter.MainPagerAdapter;
 import lokter.hu.coolwallet.events.OnScrolledEvent;
-import lokter.hu.coolwallet.fragments.NewRepeatingItemDialogFragment;
-import lokter.hu.coolwallet.model.Item;
-import lokter.hu.coolwallet.model.RepeatingItem;
 
 import static lokter.hu.coolwallet.R.id.vpMain;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener,NewRepeatingItemDialogFragment.INewRepeatingItemDialogListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
     @BindView(vpMain)
     ViewPager viewPager;
@@ -43,11 +39,6 @@ public class MainActivity extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
-        /*Fragment mainFragment = new MainFragment();
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.add(R.id.drawer_layout,mainFragment);
-        t.addToBackStack(null);
-        t.commit();*/
         viewPager.addOnPageChangeListener(this);
     }
 
@@ -99,16 +90,6 @@ public class MainActivity extends AppCompatActivity
     public void onPageScrollStateChanged(int state) {
         if(state == 1){
             EventBus.getDefault().post(new OnScrolledEvent(viewPager.getCurrentItem()));
-        }
-    }
-
-
-    @Override
-    public void onRepeatingItemCreated(RepeatingItem newItem,Item item) {
-        if(item != null)
-        Toast.makeText(this,newItem.getName() + " " + newItem.getFrequency() + item.getTitle(),Toast.LENGTH_LONG).show();
-        else{
-            Toast.makeText(this,"Muszáj itemet megadni",Toast.LENGTH_LONG).show();
         }
     }
 }
