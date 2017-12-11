@@ -35,6 +35,7 @@ import lokter.hu.coolwallet.RecyclerItemTouchHelper;
 import lokter.hu.coolwallet.adapter.ItemsAdapter;
 import lokter.hu.coolwallet.adapter.SpinnerAdapter;
 import lokter.hu.coolwallet.events.ItemSetChangedEvent;
+import lokter.hu.coolwallet.listeners.EndlessRecyclerOnScrollListener;
 
 /**
  * Created by Balint on 2017. 10. 03..
@@ -112,6 +113,16 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
         spinnerAdapter = new SpinnerAdapter(getContext(), labelSpinner, getString(R.string.al_items));
         labelSpinner.setOnItemSelectedListener(this);
         spinnerAdapter.refresh();
+
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                mAdapter.incrementStartingTime();
+                int selectedLabel = labelSpinner.getSelectedItemPosition();
+                mAdapter.setFilter(spinnerAdapter.getSelectedLabel(selectedLabel));
+
+            }
+        });
         EventBus.getDefault().register(this);
         return rootView;
     }
@@ -181,8 +192,10 @@ public class RecentItemsFragment extends Fragment implements AdapterView.OnItemS
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onChangedEvent(ItemSetChangedEvent event) {
-        mAdapter.loadItems();
-        spinnerAdapter.refresh();
+        int selectedLabel = labelSpinner.getSelectedItemPosition();
+        mAdapter.setFilter(spinnerAdapter.getSelectedLabel(selectedLabel));
+        if(event.changeType.equals(ItemSetChangedEvent.CREATED))
+            spinnerAdapter.refresh();
         if(event.changeType.equals(ItemSetChangedEvent.CREATED))
         Snackbar.make(getView(), R.string.item_saved,Snackbar.LENGTH_SHORT).show();
     };

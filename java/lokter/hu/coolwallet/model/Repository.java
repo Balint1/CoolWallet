@@ -50,7 +50,7 @@ public class Repository {
         Log.i("database", "Item-ek betöltése");
         return new Select()
                 .from(Item.class)
-                .where("Id = ?",filter.getId())
+                .where("Label = ? ",filter.getId())
                 .orderBy("Date")
                 .execute();
     }
@@ -102,6 +102,13 @@ public class Repository {
 
         return new Select()
                 .from(Item.class).where("Date > ? AND Date < ?",start.getMillis(),end.getMillis())
+                .execute();
+    }
+    public static List<Item> between(DateTime start, DateTime end,Lab3l filter)
+    {
+
+        return new Select()
+                .from(Item.class).where("Date > ? AND Date < ? AND Label = ?",start.getMillis(),end.getMillis(),filter.getId())
                 .execute();
     }
     public static int[] balance(DateTime start,DateTime end){

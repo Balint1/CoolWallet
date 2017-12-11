@@ -9,16 +9,14 @@ import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.activeandroid.query.Select;
-
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Collections;
@@ -36,6 +34,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public List<Item> itemsList;
     private RecentItemsFragment fragment;
+    DateTime startTime ;
 
 
 
@@ -57,6 +56,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public ItemsAdapter(RecentItemsFragment fragment) {
         this.fragment = fragment;
+        startTime = new DateTime(DateTime.now().year().get(),DateTime.now().monthOfYear().get(),1,0,0);
         loadItems();
 
     }
@@ -139,24 +139,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
     public void loadItems()
     {
-        itemsList = new Select()
-            .from(Item.class)
-            .execute();
-        Log.i("LIST","Items size :" + itemsList.size());
-        for (int i = 0; i <itemsList.size();i++) {
-            Log.i("LIST","" + itemsList.get(i).date);
-        }
-        Collections.sort(itemsList);
+        itemsList = Repository.between(startTime,DateTime.now());
 
         notifyDataSetChanged();
     }
 
     private void loadLabel(Lab3l label)
     {
-        itemsList = new Select()
-                .from(Item.class).where("Label = ? ",label.getId())
-                .execute();
-        Collections.sort(itemsList);
+        itemsList = Repository.between(startTime,DateTime.now(),label);
 
         notifyDataSetChanged();
     }
@@ -179,6 +169,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         else
             loadLabel(label);
     }
-
+    public void incrementStartingTime(){
+        startTime = startTime.minusMonths(1);
+    }
 
 }
